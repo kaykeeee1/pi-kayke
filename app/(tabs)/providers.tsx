@@ -27,7 +27,7 @@ const providers = [
     rating: 4.7,
     location: 'Belo Horizonte, MG',
     image: 'https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=400&h=400&fit=crop',
-    specialties: ['Roupas Sob Medida', 'Reformas', 'Bordados']
+    specialties: ['Roupas Sob Medida', 'Reformas', 'Bordados, ']
   }
 ];
 
@@ -82,17 +82,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    justifyContent:'center'
+    
   },
   header: {
     padding: 24,
     borderBottomWidth: 1,
     borderBottomColor: '#f5f5f5',
+    alignItems:'center',
+    marginTop:30,
+    
   },
   title: {
     fontFamily: 'PlayfairDisplay_700Bold',
     fontSize: 28,
     color: '#1a1a1a',
     marginBottom: 8,
+    
   },
   subtitle: {
     fontFamily: 'Inter_400Regular',
@@ -113,10 +119,14 @@ const styles = StyleSheet.create({
     shadowOffset: {
       width: 0,
       height: 2,
+      
+      
     },
     shadowOpacity: 0.1,
     shadowRadius: 3,
     elevation: 3,
+    marginTop: 35,
+    
   },
   providerImage: {
     width: 80,
@@ -131,6 +141,8 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
+    
+    
   },
   providerName: {
     fontFamily: 'Inter_600SemiBold',
@@ -156,6 +168,7 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
+    
   },
   location: {
     fontFamily: 'Inter_400Regular',

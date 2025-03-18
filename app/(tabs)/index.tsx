@@ -91,18 +91,23 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    marginTop:35,
+  
   },
   header: {
     padding: 24,
     backgroundColor: '#fff',
     borderBottomWidth: 1,
     borderBottomColor: '#f5f5f5',
+    
+    
   },
   title: {
     fontFamily: 'PlayfairDisplay_700Bold',
     fontSize: 32,
     color: '#1a1a1a',
     marginBottom: 8,
+    
   },
   subtitle: {
     fontFamily: 'Inter_400Regular',
@@ -111,6 +116,7 @@ const styles = StyleSheet.create({
   },
   section: {
     padding: 24,
+    
   },
   sectionTitle: {
     fontFamily: 'Inter_600SemiBold',
@@ -167,6 +173,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     gap: 4,
     marginBottom: 8,
+    
   },
   rating: {
     fontFamily: 'Inter_600SemiBold',
@@ -177,11 +184,13 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     gap: 4,
+    
   },
   location: {
     fontFamily: 'Inter_400Regular',
     fontSize: 12,
     color: '#666',
+    
   },
   worksGrid: {
     flexDirection: 'row',
