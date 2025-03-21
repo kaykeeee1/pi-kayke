@@ -2,6 +2,13 @@ import { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image, ScrollView, Platform, TextInput, Modal } from 'react-native';
 import { Camera, MapPin, Phone, Mail, Pencil, X, Plus, Trash2 } from 'lucide-react-native';
 import * as ImagePicker from 'expo-image-picker';
+import { auth, db } from "../firebaseConfig";
+import { signOut } from "firebase/auth";
+import { doc, setDoc, getFirestore } from "firebase/firestore";
+import { initializeApp } from "firebase/app";
+import { getDatabase, ref, set, get, child, onValue } from "firebase/database";
+
+
 
 type ProfileData = {
   name: string;
@@ -30,6 +37,58 @@ export default function Profile() {
   });
 
   const [editingData, setEditingData] = useState<ProfileData>(profileData);
+
+  // Inicialize Firestore corretamente
+  const db = getFirestore();
+
+  const saveProfileData = async () => {
+    try {
+      const profileRef = doc(db, 'profiles', 'user_profile');  
+      await setDoc(profileRef, {
+        profileImage,
+        coverImage,
+        profileData
+      });
+      console.log('Dados do perfil salvos com sucesso!');
+    } catch (error) {
+      console.error('Erro ao salvar os dados do perfil:', error);
+    }
+  };
+
+  const handleSaveProfile = async () => {
+    try {
+      // Atualiza os dados de perfil com as edições feitas
+      setProfileData(editingData);
+
+      // Salva os dados no Firestore
+      await saveProfileData();
+
+      // Fecha o modal de edição
+      setEditModalVisible(false);
+
+      // Limpa o campo de novo serviço
+      setNewService('');
+    } catch (error) {
+      console.error('Erro ao salvar os dados do perfil:', error);
+    }
+  };
+
+  const handleAddService = () => {
+    if (newService.trim()) {
+      setEditingData({
+        ...editingData,
+        services: [...editingData.services, newService.trim()]
+      });
+      setNewService('');
+    }
+  };
+
+  const handleRemoveService = (index: number) => {
+    setEditingData({
+      ...editingData,
+      services: editingData.services.filter((_, i) => i !== index)
+    });
+  };
 
   useEffect(() => {
     (async () => {
@@ -70,29 +129,6 @@ export default function Profile() {
         setCoverImage(result.assets[0].uri);
       }
     }
-  };
-
-  const handleSaveProfile = () => {
-    setProfileData(editingData);
-    setEditModalVisible(false);
-    setNewService('');
-  };
-
-  const handleAddService = () => {
-    if (newService.trim()) {
-      setEditingData({
-        ...editingData,
-        services: [...editingData.services, newService.trim()]
-      });
-      setNewService('');
-    }
-  };
-
-  const handleRemoveService = (index: number) => {
-    setEditingData({
-      ...editingData,
-      services: editingData.services.filter((_, i) => i !== index)
-    });
   };
 
   const ImagePickerModal = ({ type, visible, onClose }: { type: 'profile' | 'cover', visible: boolean, onClose: () => void }) => (
@@ -234,7 +270,6 @@ export default function Profile() {
       </View>
     </Modal>
   );
-
   return (
     <ScrollView style={styles.container}>
       <View style={styles.coverContainer}>
